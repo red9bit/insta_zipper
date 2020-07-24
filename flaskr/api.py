@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from utils.utils import create_auth_context, telegram_share_url_generator
+from .utils import create_auth_context, telegram_share_url_generator
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
