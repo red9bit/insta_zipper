@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
-from .utils import create_auth_context, telegram_share_url_generator
+from zipper.telegram_bot import send_message
+from .utils import create_auth_context, telegram_share_url_generator, instagram_auth_url_generator
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -17,6 +18,19 @@ def instagram_authenticate():
     return render_template('api/instagram_callback.html', **context)
 
 
-@bp.route('/get_updates', methods=['GET'])
-def get_updates():
-    return
+@bp.route('/get_updates', methods=['POST'])
+def get_telegram_updates():
+    data = request.json
+    message = data.get('message', data.get('edited_message'))
+    text = message.get('text').strip()
+    chat_id = message['chat']['id']
+
+    if text == '/start':
+        msg = 'Hello and welcome to InstaZipper!\n' \
+              'Click on the following link and then login to your Instagram account to continue...'
+        send_message(chat_id, msg)
+        send_message(chat_id, instagram_auth_url_generator())
+    else:
+        pass
+
+    return {}, 200
