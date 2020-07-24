@@ -4,7 +4,7 @@ from utils.utils import create_auth_context, telegram_share_url_generator
 bp = Blueprint('api', __name__, url_prefix='/api')
 
 
-@bp.route('/auth', methods=['POST'])
+@bp.route('/auth', methods=['GET'])
 def instagram_authenticate():
     auth_code = request.args.get('code')
     if auth_code:
