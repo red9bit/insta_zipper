@@ -11,6 +11,10 @@ MONGO_DB = config('MONGO_DB', cast=str)
 MONGO_USER = config('MONGO_USER', cast=str_or_none_cast)
 MONGO_PASS = config('MONGO_PASS', cast=str_or_none_cast)
 
+# MongoDB collections
+COLLECTION_INSTAGRAM_AUTH_CODES = config('COLLECTION_INSTAGRAM_AUTH_CODES', default='instagram_auth_codes', cast=str)
+COLLECTION_TELEGRAM_CHATS = config('COLLECTION_TELEGRAM_CHATS', default='telegram_chats', cast=str)
+
 # Celery Broker
 CELERY_BROKER_HOST = config('CELERY_BROKER_HOST', cast=str)
 CELERY_BROKER_USER = config('CELERY_BROKER_USER', cast=str)
