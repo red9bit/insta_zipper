@@ -9,7 +9,7 @@ bp = Blueprint('api', __name__, url_prefix='/api')
 def instagram_authenticate():
     auth_code = request.args.get('code')
     if auth_code:
-        clean_auth_code = auth_code[:-2]  # remove #_ from the end
+        clean_auth_code = auth_code.split('#_')[0]  # remove #_ from the end
         url = telegram_share_url_generator(clean_auth_code)
         message = 'Great! Please click on the link below and then select InstaZipper bot to continue...'
         context = create_auth_context(True, message, url=url)
