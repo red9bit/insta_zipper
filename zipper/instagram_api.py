@@ -62,5 +62,6 @@ def get_instagram_credential(auth_code):
 
     access_token = res.json().get('access_token')
     data['access_token'] = access_token
+    is_successful = True
 
     return is_successful, data
