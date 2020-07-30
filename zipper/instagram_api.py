@@ -65,3 +65,17 @@ def get_instagram_credential(auth_code):
     is_successful = True
 
     return is_successful, data
+
+
+def query_the_user_media(long_lived_token, user_id):
+    query_params = {
+        'access_token': long_lived_token,
+        'fields': 'id,media_type,media_url'
+    }
+
+    ok, response = request(
+        f'https://graph.instagram.com/{user_id}/media',
+        params=query_params
+    )
+
+    return ok, response
