@@ -1,6 +1,8 @@
 import datetime
 
 from flask import Blueprint, render_template, request, current_app as app
+
+from zipper.tasks import download_instagram_media
 from zipper.telegram_bot import send_message
 from zipper.instagram_api import get_instagram_credential
 
@@ -72,7 +74,14 @@ def get_telegram_updates():
                   'Try using `/login_url` to login to your Instagram account.'
             send_message(chat_id, msg)
         else:
-            pass
+            msg = 'Download has been started!\n' \
+                  'Please wait...'
+            send_message(chat_id, msg)
+            download_instagram_media(
+                chat_id,
+                telegram_chat_record['instagram_user_id'],
+                telegram_chat_record['token']
+            )
     else:
         # try fetching Instagram auth code from MongoDB
         instagram_auth_collection = db[app.config['COLLECTION_INSTAGRAM_AUTH_CODES']]
